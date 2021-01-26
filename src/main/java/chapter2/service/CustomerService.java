@@ -1,5 +1,6 @@
 package chapter2.service;
 
+import chapter2.helper.DatabaseHelper;
 import chapter2.model.Customer;
 import chapter2.util.PropsUtil;
 import org.slf4j.Logger;
@@ -51,7 +52,8 @@ public class CustomerService {
         try {
             List<Customer> customerList = new ArrayList<>();
             String sql = "SELECT * FROM customer";
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            // 获取数据库连接
+            connection = DatabaseHelper.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -68,13 +70,8 @@ public class CustomerService {
         } catch (SQLException e) {
             LOGGER.error("execute sql failure", e);
         } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    LOGGER.error("close connection failure", e);
-                }
-            }
+            // 关闭数据库连接
+            DatabaseHelper.closeConnection(connection);
         }
         return null;
     }
