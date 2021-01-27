@@ -36,7 +36,7 @@ public class CustomerService {
      * @return
      */
     public Customer getCustomer(long id) {
-        String sql = "SELECT * FROM customer WHERE id = ?";
+        String sql = "SELECT * FROM customer WHERE id = " + id;
         return DatabaseHelper.queryEntity(Customer.class, sql);
     }
 

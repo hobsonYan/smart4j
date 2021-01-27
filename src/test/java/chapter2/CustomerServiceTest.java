@@ -1,5 +1,6 @@
 package chapter2;
 
+import chapter2.helper.DatabaseHelper;
 import chapter2.model.Customer;
 import chapter2.service.CustomerService;
 import org.junit.Assert;
@@ -25,7 +26,7 @@ public class CustomerServiceTest {
 
     @Before
     public void init() {
-        // TODO 初始化数据库
+        DatabaseHelper.executeSqlFile("sql/customer_init.sql");
     }
 
     @Test
